@@ -1000,28 +1000,24 @@ s = """1-13 r: gqdrspndrpsrjfjx
 16-18 s: kssssssswssssssssssb
 """
 
-def check_password_policy(s):
-    r, x, y = s.split(' ')
+def parse_input_string(input_string):
+    r, x, y = input_string.split(' ')
     x = x[:-1]
     start, end = r.split('-')
+    return int(start), int(end), x, y
 
+
+def check_password_policy(input_string):
+    start, end, x, y = parse_input_string(input_string)
     # for each number in r:
-    for number in range(int(start), int(end) + 1):
+    for number in range(start, end + 1):
     #    test if x is number-times in y
         if number == y.count(x):
             return True
     return False
 
-def check_new_password_policy(s):
-    r, x, y = s.split(' ')
-    x = x[:-1]
-    pos1, pos2 = r.split('-')
-    pos1 = int(pos1)
-    pos2 = int(pos2)
-
-    # 1   -  3  a: abcde
-    #    r
-    # pos1 pos2 x   y
+def check_new_password_policy(input_string):
+    pos1, pos2, x, y = parse_input_string(input_string)
     return (y[pos1-1] == x) ^ (y[pos2-1] == x)
 
 num_correct_old_passwords = 0
